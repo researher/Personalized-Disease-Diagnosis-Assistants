@@ -1,4 +1,4 @@
-################ Log-odds based Personalized Disease Diagnosis Assistant ######################
+################ LOADDx: A Personalized Disease Diagnosis Assistant ######################
 
 # load packages
 library(caret) # for various machine learning functions
@@ -202,13 +202,13 @@ for(p in seq(P_start,P_end,P_step)){  # loop of p is for top genes
         }
         
         if(any(Top_Disease_Names == "Respiratory Viral Infection")){
-          predicted_info[predicted_info$Super_Subject_ID == l , (i+s_index-1)][2] <- 1
-          Gene_Data_All_ti_prediction[Gene_Data_All_ti_prediction$Super_Subject_ID == l , (i+s_index-1)][1] <- 1
-          All_Sub_temp_prediction[l,i] <- 1
+          predicted_info[predicted_info$Super_Subject_ID == l , (i+s_index-1)][2] <- "RVI"
+          Gene_Data_All_ti_prediction[Gene_Data_All_ti_prediction$Super_Subject_ID == l , (i+s_index-1)][1] <- "RVI"
+          All_Sub_temp_prediction[l,i] <- "RVI"
         }else{
-          predicted_info[predicted_info$Super_Subject_ID == l , (i+s_index-1)][2] <- 0
-          Gene_Data_All_ti_prediction[Gene_Data_All_ti_prediction$Super_Subject_ID == l , (i+s_index-1)][1] <- 0
-          All_Sub_temp_prediction[l,i] <- 0
+          predicted_info[predicted_info$Super_Subject_ID == l , (i+s_index-1)][2] <- "Not RVI"
+          Gene_Data_All_ti_prediction[Gene_Data_All_ti_prediction$Super_Subject_ID == l , (i+s_index-1)][1] <- "Not RVI"
+          All_Sub_temp_prediction[l,i] <- "Not RVI"
         }
         print(paste("Predicted label using top ", i, "disease is:"))
         print(All_Sub_temp_prediction[l,i])
