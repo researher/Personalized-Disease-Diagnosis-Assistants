@@ -25,12 +25,12 @@ Data_Unique_Disease <- read.csv(file = "Data_Unique_Disease.csv", header = TRUE,
 # how many top gene you want for assigning weights to the diseases in KG 
 
 # rang of top P genes and bottom Q genes 
-P_start <- 50
-P_end <- 400 
-P_step <- 50
-Q_start <- 50
-Q_end <- 400
-Q_step <- 50
+P_start <- 10
+P_end <- 500 
+P_step <- 10
+Q_start <- 10
+Q_end <- 500
+Q_step <- 10
 
 #################################################################################################
 
