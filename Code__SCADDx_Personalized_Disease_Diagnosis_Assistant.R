@@ -224,20 +224,30 @@ for(p in seq(P_start,P_end,P_step)){  # loop of p is for top genes
     file_name_1 <- paste("predicted_info_60hr_Sub_",l,"_p_",p,"_q_",q,".csv", collapse = "",sep="")
     write.csv(Gene_Data_All_ti_prediction, file = file_name_1, row.names = FALSE)
     
-    for(i in 1:6){
-      
-      hit <- 0
-      for(k in 1:dim(All_Sub_temp_prediction)[1]){
-        if(Gene_Data_All_ti_prediction[k,"Label"] == All_Sub_temp_prediction[k,i]){
-          hit <- hit + 1
-        }
+    if(any(Gene_Data_All_ti_prediction$Label == "Not RVI")){
+      for(i in 1:6){
+        confusion_mat <- confusionMatrix( as.factor(All_Sub_temp_prediction[,i]), as.factor(Gene_Data_All_ti_prediction$Label), positive = "RVI")
+        print(paste("Accuracy using top", i, "disease is:"))
+        print(confusion_mat)
+    
+        Accuracy_matrix[Acc_index, (2+i)] <- confusion_mat$overall[1]
       }
-      Acc <- hit/dim(All_Sub_temp_prediction)[1]
-      print(paste("Accuracy using top", i, "disease is:"))
-      print(Acc)
-      
-      Accuracy_matrix[Acc_index, (2+i)] <- Acc
-      
+  
+    }
+    else{
+      for(i in 1:6){
+        hit <- 0
+          for(k in 1:dim(All_Sub_temp_prediction)[1]){
+            if(Gene_Data_All_ti_prediction[k,"Label"] == All_Sub_temp_prediction[k,i]){
+              hit <- hit + 1
+            }
+          }
+        Acc <- hit/dim(All_Sub_temp_prediction)[1]
+        print(paste("Accuracy using top", i, "disease is:"))
+        print(Acc)
+    
+        Accuracy_matrix[Acc_index, (2+i)] <- Acc
+      }
     }
     
     Accuracy_matrix$P[Acc_index] <- p
